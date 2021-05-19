@@ -1,0 +1,1 @@
+Get-ADComputer -Filter {OperatingSystem -Like '*Windows Server*'} | Select-Object -ExpandProperty DNSHostName | ForEach-Object { $result = (Get-Service -ComputerName $_ -Name WinRM -ErrorAction SilentlyContinue | Select -ExpandProperty  Status) ; If ( $result -ne $null ) { $_ + "`t" + $result | out-file -FilePath .\result.txt -Append }}
